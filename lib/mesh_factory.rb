@@ -21,11 +21,12 @@ class MeshFactory
 			segment_w: 16,
 			segment_h: 16,
 			mat_type: :phong,
-			texture_map: get_texture("textures/earth.png"),
+			texture_map: get_texture("textures/Pancake.png"),
 			normal_map: get_texture("textures/earth_normal.png")
 		}
 		generate(attr)
-	end
+	
+
 
 	# コンストラクタ
 	def initialize(attr)
@@ -36,10 +37,29 @@ class MeshFactory
 
 	# メッシュ生成
 	def build_mesh
-		Mittsu::Mesh.new(build_geometry, build_material)
+		if @geom_type == :frying_pan
+			build_frying_pan
+		else
+			Mittsu::Mesh.new(build_geometry, build_material)
+		end
 	end
 
 	private
+
+	def build_frying_pan
+		#geom_body = Mittsu::BoxGeometry.new(1, 1, 1, 4, 4, 4)
+		geom_body = Mittsu::SphereGeometry.new(1, 16, 16, 0.0, Math::PI * 2, Math::PI, Math::PI / 2)
+		mat_body = Mittsu::MeshLambertMaterial.new(color: 0x666666)
+		mesh_body = Mittsu::Mesh.new(geom_body, mat_body)
+		geom_lenz = Mittsu::CylinderGeometry.new(0.1, 0.15, 1)
+		mat_lenz = Mittsu::MeshLambertMaterial.new(color:0x666666)
+		mesh_lenz = Mittsu::Mesh.new(geom_lenz, mat_lenz)
+		mesh_body.add(mesh_lenz)
+		mesh_lenz.position.x = -1.45          # -X方向に1.5移動（高さを1.5にしているため）
+		mesh_lenz.position.y = -0.25
+		mesh_lenz.rotation.z = Math::PI / 2
+		mesh_body
+	end
 
 	# ジオメトリ生成
 	def build_geometry

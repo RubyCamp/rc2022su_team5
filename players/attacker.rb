@@ -19,7 +19,7 @@ module Players
 		def initialize(level: 0)
 			# キャラクタの3D形状を定義する情報。MeshFactoryクラスに渡される
 			attr = {
-				geom_type: :box,
+				geom_type: :frying_pan,
 				mat_type: :phong,
 				color: 0x00ff00
 			}
