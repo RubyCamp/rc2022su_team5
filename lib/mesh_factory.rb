@@ -25,7 +25,7 @@ class MeshFactory
 			normal_map: get_texture("textures/earth_normal.png")
 		}
 		generate(attr)
-	
+	end
 
 
 	# コンストラクタ

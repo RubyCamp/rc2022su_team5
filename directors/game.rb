@@ -66,6 +66,7 @@ module Directors
 			removed_bombs = player.intercept_bombs(@bombs)
 			removed_bombs.each{|bomb| self.scene.remove(bomb.mesh) }
 			@bombs -= removed_bombs
+			@score += removed_bombs.size
 		end
 
 		# 地面（Ground）レベルまで落下した爆弾の消去処理
@@ -73,7 +74,6 @@ module Directors
 			removed_bombs = Bomb.operation(@bombs, GROUND_LEVEL)
 			removed_bombs.each{|bomb| self.scene.remove(bomb.mesh) }
 			@bombs -= removed_bombs
-			@score += removed_bombs.size
 		end
 
 		# シーンに爆弾を追加
